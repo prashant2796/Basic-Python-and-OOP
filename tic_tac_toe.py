@@ -1,3 +1,4 @@
+test_board = ['#','X','O','X','O','X','O','X','O','X']
 def display_board(board):
 	"""
 	This function is used to display 
@@ -15,7 +16,7 @@ def display_board(board):
 	print(' ' + board[1] +' | ' + board[2] + ' | ' + board[3])
 	print('   |   |')
 
-display_board(['#','X','O','X','O','X','O','X','O','X'])
+# display_board(['#','X','O','X','O','X','O','X','O','X'])
 
 def player_input():
 	"""
@@ -32,7 +33,54 @@ def player_input():
 		return('X','O')
 	else:
 		return('O','X')
-player_input()
+# player_input()
+
+def place_marker(board,marker,position):
+	"""
+	This function will place marker 
+	on a specified postion by the user.
+	"""
+	board[position] = marker
+# place_marker(test_board,'&',6)
+
+def win_check(board,marker):
+	"""
+	The function takes in the board and 
+	the marker and checks to see if that
+	marker has won.
+
+	WIN TICTACTOE?
+	Check if any row or column or any diagonal
+	has the same marker.
+	"""
+	for i in board[1:10]:
+		# Check to see if there is consecutive marker in a row.If Yes,return True
+		if board[i] == marker and board[i+1] == marker and board[i+2] == marker:
+
+			return True
+		# Check to see if there is consecutive marker in a column.If Yes,return True
+		elif board[i] == marker and board[i+3] == marker and board[i+6] == marker:
+
+			return True
+		# Check to see if there is consecutive marker in a diagonal.If Yes,return True
+		elif board[i] == marker and board[i+4] == marker and board[i+8] == marker:
+			return True
+		else:
+			return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
