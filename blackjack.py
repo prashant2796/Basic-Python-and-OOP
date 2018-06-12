@@ -19,6 +19,7 @@ class Card():
 	def __str__(self):
 		return (f"{self.ranks} of {self.suits}")
 
+
 class Deck():
 	"""
 	This class describes a pack of 52 unique cards as 
@@ -41,7 +42,7 @@ class Deck():
 	def shuffle(self):
 		"""
 		This Function will shuffle the pack of cards
-		"""
+		""" 
 		random.shuffle(self.deck)
 
 	def deal(self):
@@ -105,3 +106,140 @@ class Chips():
 
 	def loss_bet(self):
 		self.total -= self.bet
+
+
+def take_bet(chips):
+	"""
+	This function takes in actual Bet value from the user
+	"""
+	while True:
+
+		try:
+			chips.bet = int(input("How many chips would you like to bet? "))
+		except:
+			# If the user didnt provide valid integer 
+			print("Sorry Please provide an integer")
+		else:
+			# If the bet amount is greater than total chips 
+			if chips.bet > chips.total:
+				print(f"Sorry you do not have enough chips! You have: {chips.total}")
+			else:
+				break
+
+
+def hit(deck,hand):
+	"""
+	This Function will take in Deck and Hand objects as an argument
+	and basically will pop one card from the deck and add it to hand.
+	"""
+	# Pop the card from the Deck
+	single_card = deck.deal()
+
+	# Add that card in the Hand
+	hand.add_card(single_card)
+
+	#adjust the ace if required
+	hand.adjust_for_aces()
+
+
+def hit_or_stand(deck,hand):
+	"""
+	This Function will take in Deck and Hand objects as an argument
+	and specify whether an user wants to draw another card or 
+	wants to stand i.e let computer play its turn.
+	"""
+	# To control an upcoming while loop
+	global playing
+
+	while True:
+		i = input('Hit or Stand? Enter h or s ')
+
+		# Incase user enters 'Hit' or 'stand',checking the first letter of string
+		if i[0].lower() == 'h':
+			hit(deck,hand)
+
+		elif i[0].lower() == 's':
+			print("Player Stands, Dealer's Turn")
+			playing = False
+
+		# Incase users enters somethings that doesnt start with 'h' or 's'	
+		else:
+			print("Sorry!! I Do not understand that, Please enter h or s only!")
+			continue
+
+		break
+
+
+def show_some(player,dealer):
+	"""
+	A Funtion to display all the player's card and dealer's card 
+	except that one card of the dealer is hidden
+	"""
+	print("Dealer's Hand: ")
+	print("One card Hidden!")
+	print(dealer.card[1])
+	print('\n')
+	print("Player's Hand: ")
+	for card in player.cards:
+		print(card)
+
+
+def show_all(player,dealer):
+	"""
+	A Funtion to display all the player's card and dealer's card 
+	"""
+	print("Dealer's Hand: ")
+	for card in dealer.cards:
+		print(card)
+	print('\n')
+	print("Player's Hand: ")
+	for card in player.cards:
+		print(card)
+
+
+def player_busts(player,dealer,chips):
+	"""
+	If the player is busted it will print out the message 
+	and decrement the chips by calling loss_bet method
+	"""
+	print("BUST PLAYER!!!")
+	chips.loss_bet()
+
+
+def player_wins(player,dealer,chips):
+	"""
+	If the player wins it will print out the message 
+	and increment the chips by calling win_bet method 
+	"""
+	print("PLAYER WINS!!!")
+	chips.win_bet()
+
+
+def dealer_busts(player,dealer,chips):
+	"""
+	If the dealer is busted it will print out the message 
+	and increment the chips by calling win_bet method
+	"""
+	print("BUST DEALER, PLAYER WINS!!!")
+	chips.win_bet()
+
+
+def dealer_wins(player,dealer,chips):
+	"""
+	If the dealer wins it will print out the message 
+	and decrement the chips by calling loss_bet method
+	"""
+	print("DEALER WINS!!!")
+	chips.loss_bet()
+
+
+def push(player,dealer):
+	print("Dealer and Player tie! PUSH")
+
+
+
+
+
+
+
+
