@@ -30,7 +30,7 @@ def player_input():
 	# Continue asking user until you get the valid input
 	while not (marker == 'X' or marker == 'O'):
 		marker = input("Player 1:Choose X or O: ").upper()
-		
+
 	# Set the marker according to the choice of first user
 	if marker == 'X':
 		return('X','O')
@@ -202,21 +202,3 @@ def tictactoe_game():
 			break
 
 tictactoe_game()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
