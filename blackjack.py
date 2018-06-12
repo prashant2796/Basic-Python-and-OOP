@@ -50,3 +50,58 @@ class Deck():
 		"""
 		card_popped = self.deck.pop()
 		return card_popped
+
+
+class Hand():
+	"""
+	This function describes what cards are in players Hand.
+	It calculates the sum of those cards as well.
+	"""
+	def __init__(self):
+		self.cards = []
+		self.values = 0
+		self.aces = 0
+
+	def add_card(self,card):
+		"""
+		This Method takes in a card passed from Deck class
+		deal() method and adds the value of that card to 
+		self.value.
+		"""
+		# Appending the card drawn from Desk object to self.cards list
+		self.cards.append(card)
+
+		# Passing the rank of that card as a key to the values dictionary defined above
+		# to get back the value associated with it and adding it to self.values. 
+
+		self.values += values[card.rank]
+
+		# Track aces 
+		if card.rank == 'Ace':
+			self.aces += 1
+
+	def adjust_for_aces(self):
+		"""
+		If total value is greater than 21 and I still have an Ace
+		then change my Ace to be 1 instead of 11
+		"""
+		while self.values > 21 and self.aces:
+			self.values -= 10
+			self.aces -= 1
+
+
+class Chips():
+	"""
+	This class keeps the track of Player's starting chips,bets, and ongoing 
+	winnings. 
+	"""
+
+	def __init__(self):
+		self.total = 100
+		self.bet = 0
+
+	def win_bet(self):
+		self.total += self.bet
+
+	def loss_bet(self):
+		self.total -= self.bet
